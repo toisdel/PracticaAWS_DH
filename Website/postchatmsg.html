@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+      <script type="text/javascript">
+        var paramstr = window.location.search.substr(1);
+        var paramarr = paramstr.split ("&");
+        var params = {};
+        
+        for ( var i = 0; i < paramarr.length; i++) {
+        var tmparr = paramarr[i].split("=");
+        params[tmparr[0]] = tmparr[1];
+        }
+        if (params['id_graffiti']) {
+        console.log('El valor del parámetro variable es: '+params['id_graffiti']);
+        } else {
+        console.log('No se envió el parámetro variable');
+        }
+        const id_chat_js = params['id_graffiti'];
+        </script>
+      
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+      <title>Chat</title>
+      <script src="js/get_graffiti.js"></script>
+      <script src="js/get_graffiti_msgs.js"></script>
+      <script src="js/send_graffiti_msg.js"></script>
+    </head>
+    <body>
+    
+      
+    <h1>Graffiti chat</h1>
+    <!-- table for showing data -->
+    <table id="graffiti_table"></table>
+    <h1></h1>
+    <h3>Mensajes del chat</h3>
+    <!-- table for showing data -->
+    <table id="graffiti_msgs"></table>
+    <h1></h1>
+    
+    <div>
+      <h3>Publicar un mensaje</h3>
+      <textarea name="" id="texto" cols="100" rows="3"></textarea>
+    </div>
+    <div>
+      <h3>Usuario</h3>
+      <textarea name="" id="usuario" cols="20" rows="1"></textarea>
+    </div>
+    <h1></h1>
+    <h5>Vista Previa</h5>
+    
+      <div id="app"></div>
+      <script>
+          setInterval(function(){
+            let cuadro = document.getElementById("texto").value
+            let lienzo = document.getElementById("app").innerHTML = cuadro
+          }, 100)
+      </script>
+    
+    <button type="submit" onclick="postapimsg()">Publicar mensaje!</button>
+    
+    <table id="detailmsg"></table>
+
+      <footer class="site-footer">
+        <div class="row column">
+          <nav class="footer-nav">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="postgraffiti.html">Compartir graffiti</a></li>
+              <li><a href="graffitisposted.html">Ver graffitis publicados</a></li>
+            </ul>
+          </nav>
+        </div>
+    
+        <div class="row column">
+          <div class="footer-legal">
+            &copy;AdsbyArt Inc<br>
+            All Rights Reserved
+          </div>
+        </div>
+      </footer>
+    </body>
+</html>

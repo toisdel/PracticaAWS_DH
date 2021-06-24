@@ -1,0 +1,129 @@
+service: graffiti-chat-manager
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: eu-west-1
+  environment:
+    DYNAMODB_GRAFFITI_TABLE: graffitis
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:Query
+        - dynamodb:PutItem
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:DeleteItem
+      Resource:
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_GRAFFITI_TABLE}"
+
+functions:
+  get_all_graffitis:
+    handler: handler.get_all_graffitis
+    events:
+      - http:
+          path: /all_graf
+          method: get
+          cors: true
+  get_messages_graffiti:
+    handler: handler.get_messages_graffiti
+    events:
+      - http:
+          path: /{id_graffiti}/msgs
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                id_graffiti: true
+  send_message_graffiti:
+    handler: handler.send_message_graffiti
+    events:
+      - http:
+          path: /{id_graffiti}/msgs
+          method: post
+          #integration: lambda
+          #authorizer:
+          #  name: authorizer
+          #  arn: arn:aws:cognito-idp:eu-west-1:174907913206:userpool/eu-west-1_Mm7XnPQJ1
+          #  claims:
+          #    - email
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+          request:
+            parameters:
+              paths:
+                id_graffiti: true
+  get_graffiti:
+    handler: handler.get_graffiti
+    events:
+      - http:
+          path: /{id_graffiti}
+          method: get
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+          request:
+            parameters:
+              paths:
+                id_graffiti: true
+  send_graffiti:
+    handler: handler.send_graffiti
+    events:
+      - http:
+          path: /{id_graffiti}
+          method: post
+          #integration: lambda
+          #authorizer:
+          #  name: authorizer2
+          #  arn: arn:aws:cognito-idp:eu-west-1:174907913206:userpool/eu-west-1_Mm7XnPQJ1
+          #  claims:
+          #    - email
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+          request:
+            parameters:
+              paths:
+                id_graffiti: true
+
+resources:
+  Resources:
+    DynamoGraffitiTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.DYNAMODB_GRAFFITI_TABLE}
+        AttributeDefinitions:
+          - AttributeName: id_graffiti
+            AttributeType: S
+          - AttributeName: fecha_publicacion
+            AttributeType: S
+          
+        KeySchema:
+          - AttributeName: id_graffiti
+            KeyType: HASH
+          - AttributeName: fecha_publicacion
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST

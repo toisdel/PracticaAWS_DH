@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Graffiti post</title>
+  </head>
+<body>
+    <div class="DemoAtomUpload-section DemoAtomUpload-section--responsive">
+    <p>Click on the component or drag and drop some files to start upload</p>
+    <div>
+        <div class="sui-AtomUpload-dropzone" aria-disabled="false" style="position: relative;">
+            <div class="sui-AtomUpload sui-AtomUpload--active">
+                <span class="sui-AtomUpload-iconActive">
+                    <img class="icon-w" src="images/cloud-computing.png" width="200" height="200">
+                </span>
+                <div class="sui-AtomUpload-blockText">
+                <h4 class="sui-AtomUpload-blockText-main">Click or drag file(s) to this area to upload</h4>
+                </div>
+            </div>
+            <input type="file" multiple="" autocomplete="off" style="position: absolute; inset: 0px; opacity: 0.00001; pointer-events: none;">
+        </div>
+    </div>
+    </div>
+    <h1> Publicar Graffiti</h1>
+    <div>
+        <h5>Graffiti Name</h5>
+        <textarea name="" id="ID_GRAFFITI" cols="10" rows="1"></textarea>
+    </div>
+    <div>
+        <h5>Descripcion Graffiti</h5>
+        <textarea name="" id="DES_GRAFFITI" cols="20" rows="2"></textarea>
+    </div>
+    <div>
+        <h5>Usuario</h5>
+        <textarea name="" id="USUARIO" cols="20" rows="1"></textarea>
+    </div>
+    <button type="submit" onclick="getapi()">Publicar!</button>
+    <!-- table for showing data -->
+
+    <table id="id_graffiti"></table>
+    <!--<script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="https://js.arcgis.com/4.3/"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>-->
+    <script src="js/send_graffiti.js"></script>
+    
+    <footer class="site-footer">
+        <div class="row column">
+          <nav class="footer-nav">
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="graffitisposted.html">Ver graffitis publicados</a></li>
+            </ul>
+          </nav>
+        </div>
+    
+        <div class="row column">
+          <div class="footer-legal">
+            &copy;AdsbyArt Inc<br>
+            All Rights Reserved
+          </div>
+        </div>
+      </footer>
+
+</body>
