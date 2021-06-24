@@ -1,1 +1,1 @@
-# graffiti app backend
+# Graffiti app backend
