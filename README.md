@@ -1,9 +1,11 @@
-# graffiti app backend
+# Graffiti app
 
 Aquí se recoge toda la información de la práctica y el uso de la tecnología cloud.
-Con el servicio creado en este repositorio se podrá interactuar con la comunidad publicando y opinando sobre el arte del graffiti. Los principales componentes utilizados para la arquitectura son: S3, API GATEWAY, LAMBDA, DYNAMODB Y COGNITO.
+Con el servicio creado en este repositorio se podrá interactuar con la comunidad, publicando y opinando, sobre el arte del graffiti. 
 
-La arquitectura formada es la siguiente:
+Este repositorio se divide en dos subcarpetas, separando la parte de frontend y backend.
+
+Los principales componentes utilizados para la arquitectura son: S3, API GATEWAY, LAMBDA, DYNAMODB Y COGNITO. La arquitectura utilizada es la siguiente:
 
 ![alt text](https://github.com/toisdel/PracticaAWS_DH/blob/main/Pra%CC%81cticaAWS.png?raw=true)
 
@@ -23,7 +25,9 @@ Este recurso de AWS se utiliza en la aplicación para guardar grupos de usuarios
 
 Lambda: 
 
-El servicio lambda nos brinda la posibilidad de ejecutar código en la nube en distintos lenguajes. Este recurso se interconectará con la API y DynamoDB de nuestra aplicación y realizará inserciones o lecturas en python3 (boto3) a la base de datos. Dispondremos de 5 funciones con los siguientes objetivos:
+El servicio lambda nos brinda la posibilidad de ejecutar código en la nube en distintos lenguajes. AWS Lambda admite lenguajes como Java, NodeJS, Python, C #, Go, Ruby y Powershell. AWS Lambda brinda la infraestructura para cargar el código. Se encarga de mantener el código y lo activa cada vez que ocurre el evento requerido. La facturación de AWS Lambda se realiza en función del uso de la memoria, la solicitud realizada y la ejecución, que se factura en incrementos de un mínimo de 100 ms. También es compatible con el marco serverless, lo que facilita la escritura y la implementación del código AWS Lambda.
+
+Este recurso se interconectará con la API y DynamoDB de nuestra aplicación y realizará inserciones o lecturas con python3 (boto3) a la base de datos. Dispondremos de 5 funciones con los siguientes objetivos:
     1. Publicar un graffiti
     2. Publicar un mensaje en el chat de un graffiti
     3. Leer todos los graffitis publicados
@@ -38,7 +42,7 @@ Este recurso será el enlace entre la web estática y las funciones lambda. Medi
 
 DynamoDB:
 
-Este componente permite realizar consultas pasando como esquema distintos atributos por lo que ha resultado muy útil para integrar el repositorio de graffitis publicados con su chat de mensajes correspondiente. No obstante, no es el modo más óptimo para reducir costes pero si suficiente para la demostración del empleo de una arquitectura cloud para un caso de uso real. 
+Este componente permite realizar consultas pasando como esquema distintos atributos por lo que ha resultado muy útil para integrar el repositorio de graffitis publicados con su chat de mensajes correspondiente. No obstante, no es el modo más óptimo para reducir costes pero si suficiente para la demostración del empleo de una arquitectura cloud para un caso de uso real. También es una tecnología serverless por lo que la facturación solamente se basa en la cantidad de lecturas a la base de datos, a diferencia de la base de datos relacionas de AWS.
 
 Atributos clave:    String id_graffiti          - Clave aleatoria
                     String fecha_publicacion    - Fecha de inserción de la fila
