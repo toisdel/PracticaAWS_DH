@@ -11,8 +11,7 @@ Los principales componentes utilizados para la arquitectura son: S3, API GATEWAY
 
 Requerimientos:
 1. Poseer un usuario en AWS
-2. Tener instalado en la maquina local aws y serverless
-
+2. Instalar en la maquina local aws y serverless
 
 S3:
 
@@ -90,16 +89,16 @@ Instrucciones para desplegar el servicio:
 
 1. Clonar el repositorio
 
-git clone https://github.com/toisdel/PracticaAWS_DH
+`git clone https://github.com/toisdel/PracticaAWS_DH`
 
 2. Crear un bucket S3 (ejemplo www.adsbyart.com) y enlazarlo con AWS S3 en la màquina local. Este punto es opcional si se integra el mismo servicio S3 en el fichero serverless.yml.
 
-aws configure
+`aws configure`
 
 3. Entrar en el directorio Website y sincronizar el contenido del bucket con la carpeta Website con el siguiente comando:
 
-aws s3 sync ./ s3://www.adsbyart.com
+`aws s3 sync ./ s3://www.adsbyart.com`
 
 4. Entrar en el directorio graffitiAds y desplegar el servicio con:
 
-sls deploy
+`sls deploy`
