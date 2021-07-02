@@ -9,6 +9,11 @@ Los principales componentes utilizados para la arquitectura son: S3, API GATEWAY
 
 ![alt text](https://github.com/toisdel/PracticaAWS_DH/blob/main/Pra%CC%81cticaAWS.png?raw=true)
 
+Requerimientos:
+1. Poseer un usuario en AWS
+2. Tener instalado en la maquina local aws y serverless
+
+
 S3:
 
 AWS S3 es uno de los servicios más fundamentales que ofrece Amazon. S3 también es utilizado por varios otros servicios de AWS, así como por los propios sitios web de Amazon.
@@ -58,9 +63,9 @@ http://www.adsbyart.com.s3-website-eu-west-1.amazonaws.com/postchatmsg.html?id_g
 
 Ampliables:
 
-- En está práctica no ha sido posible la incorporación de imágenes aunque está desarrollada pensando en la incorporación de las mismas. La imágenes de cada graffiti se guardaran con el nombre del ID en una carpeta del S3 para poder acceder a ella cuando sea preciso.
+- En está práctica no ha sido posible la incorporación de imágenes aunque está desarrollada pensando en la incorporación de las mismas. La imágenes de cada graffiti se guardaran con el nombre del ID en una carpeta del S3 para poder acceder a ella cuando sea preciso. También se deberá gestionar el contenido según el tiempo que lleve publicado el graffiti en el mismo servicio S3. EL reescalado de las imágenes se realizaría por código en los java script de los misma web que almacenará la imágen en S3 directamente sin tener que guardar su contenido en la base de datos.
 
-- Finalmente no se ha podido implementar la seguridad por errores en la consulta desde java script aunque el autorizador funcionara correctamente. Una vez arreglado este error se deberá incorporar al script serverless.yml el código comentado para los métodos post:
+- Finalmente no se ha podido implementar la seguridad por errores en la consulta desde java script aunque el autorizador funcionara correctamente. Este error en la consulta a la api se debe al tipo de integración definido. Una vez arreglado este error se deberá incorporar al script serverless.yml el código comentado para los métodos post:
 
 
           integration: lambda
@@ -76,4 +81,25 @@ Ampliables:
             arn: arn:aws:cognito-idp:eu-west-1:174907913206:userpool/eu-west-1_Mm7XnPQJ1
             claims:
               - email
-          
+
+Diagrama del flujo de peticiones:
+
+![alt text](https://github.com/toisdel/PracticaAWS_DH/blob/main/flowchart-adsbyart.png?raw=true)
+
+Instrucciones para desplegar el servicio:
+
+1. Clonar el repositorio
+
+git clone https://github.com/toisdel/PracticaAWS_DH
+
+2. Crear un bucket S3 (ejemplo www.adsbyart.com) y enlazarlo con AWS S3 en la màquina local. Este punto es opcional si se integra el mismo servicio S3 en el fichero serverless.yml.
+
+aws configure
+
+3. Entrar en el directorio Website y sincronizar el contenido del bucket con la carpeta Website con el siguiente comando:
+
+aws s3 sync ./ s3://www.adsbyart.com
+
+4. Entrar en el directorio graffitiAds y desplegar el servicio con:
+
+sls deploy
