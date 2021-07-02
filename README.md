@@ -11,21 +11,21 @@ Los principales componentes utilizados para la arquitectura son: S3, API GATEWAY
 
 **Requerimientos:**
 1. Poseer un usuario en AWS
-2. Instalar en la maquina local aws y serverless
+2. Instalar en la máquina local aws y serverless
 
 **S3:**
 
 AWS S3 es uno de los servicios más fundamentales que ofrece Amazon. S3 también es utilizado por varios otros servicios de AWS, así como por los propios sitios web de Amazon.
 
-El componente principal del despliegue de la web estática es S3, configurado como un repositorio público y de libre acceso donde se almacenará información digital de los graffitis y se encargará de interactuar con la API mediante ficheros javascript. Se ha decidido utilizar esta tecnología por su fàcil acceso y su almacenaje escalable a la información contenida. La factuaración de este componente se rige por la cantidad de archivos leídos por lo que su empleo en esta práctica resultará nulo. En el caso de establecer un dominio público al S3 el coste será prácticamente de 1 euro. 
+El componente principal del despliegue de la web estática es S3, configurado como un repositorio público y de libre acceso donde se almacenará información digital de los graffitis y se encargará de interactuar con la API mediante ficheros javascript. Se ha decidido utilizar esta tecnología por su fácil acceso y su almacenaje escalable a la información contenida. La facturación de este componente se rige por la cantidad de archivos leídos por lo que su empleo en esta práctica resultará nulo. En el caso de establecer un dominio público al S3 el coste será prácticamente de 1 euro. 
 
-Los principales archivos contenidos són del tipo html y javascript para gestionar el servicoio web estático.
+Los principales archivos contenidos son del tipo html y javascript para gestionar el servicio web estático.
 
 **Cognito:**
 
 AWS Cognito simplifica la autenticación y sincronización de usuarios en varios dispositivos. También admite funciones de usuario invitado. Una vez que su cliente esté satisfecho con la aplicación, los datos se pueden transferir sin problemas al grupo de usuarios con los datos anteriores sincronizados.
 
-Este recurso de AWS se utiliza en la aplicación para guardar grupos de usuarios con sus autorizaciones. Estos grupos pueden ser distinguidos entre si por sus roles en la misma aplicación, en nuestro caso serán aquellos capaces de publicar graffitis o opinar en el chat del mismo. En el momento del registro del usuario, este deberá proporcionar el mail para registrarse o bien si ya lo está, entrar con su perfil. Esta herramiente ofrece muchos más atributos adicionales, no necesarios este caso de uso.
+Este recurso de AWS se utiliza en la aplicación para guardar grupos de usuarios con sus autorizaciones. Estos grupos pueden ser distinguidos entre si por sus roles en la misma aplicación, en nuestro caso serán aquellos capaces de publicar graffitis o opinar en el chat del mismo. En el momento del registro del usuario, este deberá proporcionar el email para registrarse o bien si ya lo está, entrar con su perfil. Esta herramienta ofrece muchos más atributos adicionales, no necesarios este caso de uso.
 
 **Lambda:**
 
@@ -42,7 +42,7 @@ Este recurso se interconectará con la API y DynamoDB de nuestra aplicación y r
 
 AWS API Gateway es un servicio capaz de interaccionar como una interfaz HTTP. Es un servicio muy útil para conectar aplicaciones sin servidor, como en nuestro caso, o también se puede integrar con aplicaciones heredadas o para enviar solicitudes HTTP directamente a otros servicios de AWS.
 
-Este recurso será el enlace entre la web estática y las funciones lambda. Mediante los métodos, accesibles desde S3, de la API REST se llamaran las lambdas apropiadas para insertar o leer registros de la base de datos. También tendrá el control de acceso mediante autorizador de los usuarios capaces de realizar llamadas a la api.
+Este recurso será el enlace entre la web estática y las funciones lambda. Mediante los métodos, accesibles desde S3, de la API REST se llamaran las lambdas apropiadas para insertar o leer registros de la base de datos. También tendrá el control de acceso mediante autorizador de los usuarios capaces de realizar llamadas a la API.
 
 **DynamoDB:**
 
@@ -65,9 +65,9 @@ http://www.adsbyart.com.s3-website-eu-west-1.amazonaws.com/postchatmsg.html?id_g
 
 **Ampliables:**
 
-- En está práctica no ha sido posible la incorporación de imágenes aunque está desarrollada pensando en la incorporación de las mismas. La imágenes de cada graffiti se guardaran con el nombre del ID en una carpeta del S3 para poder acceder a ella cuando sea preciso. También se deberá gestionar el contenido según el tiempo que lleve publicado el graffiti en el mismo servicio S3. EL reescalado de las imágenes se realizaría por código en los java script de los misma web que almacenará la imágen en S3 directamente sin tener que guardar su contenido en la base de datos.
+- En está práctica no ha sido posible la incorporación de imágenes aunque está desarrollada pensando en la incorporación de las mismas. La imágenes de cada graffiti se guardaran con el nombre del ID en una carpeta del S3 para poder acceder a ella cuando sea preciso. También se deberá gestionar el contenido según el tiempo que lleve publicado el graffiti en el mismo servicio S3. EL reescalado de las imágenes se realizaría por código en los java script de los misma web que almacenará la imagen en S3 directamente sin tener que guardar su contenido en la base de datos.
 
-- Finalmente no se ha podido implementar la seguridad por errores en la consulta desde java script aunque el autorizador funcionara correctamente. Este error en la consulta a la api se debe al tipo de integración definido. Una vez arreglado este error se deberá incorporar al script serverless.yml el código comentado para los métodos post:
+- Finalmente no se ha podido implementar la seguridad por errores en la consulta desde java script aunque el autorizador funcionara correctamente. Este error en la consulta a la API se debe al tipo de integración definido. Una vez arreglado este error se deberá incorporar al script serverless.yml el código comentado para los métodos post:
 
 
           integration: lambda
